@@ -1,5 +1,6 @@
 import {useState , useEffect} from 'react'
 import BlogList from './BlogList';
+import useFetch from './useFetch';
 
 const Home = () => {
     // const handleClick = () => {
@@ -17,39 +18,42 @@ const Home = () => {
     // const [counter , setCounter] = useState(0);
 
 
-    const [blogs  , setBlogs] = useState(null);
-    const [isLoading , setIsLoading] = useState(true);
-    const [error , setError] = useState(null);
-     
+    // const [blogs  , setBlogs] = useState(null);
+    // const [isLoading , setIsLoading] = useState(true);
+    // const [error , setError] = useState(null);
+
+
+    const {data , isLoading , error} = useFetch('http://localhost:8000/blogs');
+     console.log(data)
     // const handleDelete = (id)=>{
     //     debugger;
     //     const newBlogs = blogs.filter(a=>a.id!=id);
     //     setBlogs(newBlogs);
     // }
     
-    useEffect( ()=>{
+    // useEffect( ()=>{
 
-        
+    //     debugger;
 
-       setTimeout( () =>{
-        fetch('http://localhost:8000/blogs').then( res =>{
-        if(!res.ok){
-            throw Error("Could not featch data ");
+    //    setTimeout( () =>{
+    //     fetch('http://localhost:8000/blogs').then( res =>{
+    //     if(!res.ok){
+    //         throw Error("Could not featch data ");
 
-        }
-        return res.json();
+    //     }
+    //     return res.json();
 
-       }).then( data=>{
-            setBlogs(data);
-            setIsLoading(false);
-            setError(null);
-       }).catch ((err)=>{
-        console.log(err.message);
-        setError(err.message);
-        setIsLoading(false);
-       })
-       },1000)
-    }  , []);
+    //    }).then( data=>{
+    //         setBlogs(data);
+    //         setIsLoading(false);
+    //         setError(null);
+    //    }).catch ((err)=>{
+    //     console.log(err.message);
+    //     setError(err.message);
+    //     setIsLoading(false);
+    //    })
+    //    },1000)
+    // }  , []);
     
     return ( 
         <div className="home">
@@ -60,7 +64,7 @@ const Home = () => {
             }}>Click Me Again</button> */}
         {isLoading  && <div>Loading</div> } 
         {error  && <div>{error}</div> } 
-         {blogs && !error && <BlogList blogs={blogs} title ='All Blogs'  ></BlogList>}
+         {data && !error && <BlogList blogs={data} title ='All Blogs'></BlogList>}
          {/* <BlogList blogs={blogs.filter(a=>a.auther=='Auther 3')} title ='Auther 3 blog'  ></BlogList> */}
         </div>
      );
