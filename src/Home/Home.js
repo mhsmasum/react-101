@@ -24,7 +24,7 @@ const Home = () => {
 
 
     const {data , isLoading , error} = useFetch('http://localhost:8000/blogs');
-     console.log(data)
+     
     // const handleDelete = (id)=>{
     //     debugger;
     //     const newBlogs = blogs.filter(a=>a.id!=id);
