@@ -4,13 +4,14 @@ const BlogDetails = ({blogTitle}) => {
     
     console.log(blogTitle);
     const {id} = useParams();
-    const {data:blog , isLoadding , error} = useFetch('http://localhost:8000/blogs/'+id);
-    
+    const {data:blog , isLoading , error} = useFetch('http://localhost:8000/blogs/'+id);
+    console.log('is' , isLoading);
     return ( 
 
         <div className="blogdetails">
-             {/* <h2>{ blog.title}</h2> */}
-            { isLoadding &&  <div>Loading</div>}
+     
+             <p>{isLoading}</p>
+            { isLoading &&  <div>Loading</div>}
             { error &&  <div>{error}</div>}
             {blog && (
                
